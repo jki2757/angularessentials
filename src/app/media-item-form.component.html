@@ -9,13 +9,21 @@
     <li>
       <label for="medium">Medium</label>
       <select name="medium" id="medium" formControlName="medium">
-        <option value="Movies">Movies</option>
+        <option *ngFor="let medium of lookupLists.mediums" [value]="medium">
+          {{ medium }}
+        </option>
+
+        <!--  
         <option value="Series">Series</option>
+        -->
       </select>
     </li>
     <li>
       <label for="name">Name</label>
       <input type="text" name="name" id="name" formControlName="name" />
+      <div *ngIf="form.get('name').hasError('pattern')" class="error">
+        Name has invalid characters
+      </div>
     </li>
     <li>
       <label for="category">Category</label>
@@ -37,6 +45,9 @@
         maxlength="4"
         formControlName="year"
       />
+      <div *ngIf="form.get('year').errors as yearErrors" class="error">
+        Must be between {{ yearErrors.year.min }} and {{ yearErrors.year.max }}
+      </div>
     </li>
   </ul>
   <button type="submit" [disabled]="!form.valid">Save</button>
