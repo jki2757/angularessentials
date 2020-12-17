@@ -91,6 +91,7 @@ export interface MediaItem {
   category: string;
   year: number;
   watchedOn: number;
+
   isFavorite: boolean;
 }
 
